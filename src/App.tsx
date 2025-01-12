@@ -5,7 +5,7 @@ function App() {
     <div>
       <header>
         <h1>Agenda Master</h1>
-        <img src="/vite.svg" alt="Logo" />
+        <img src="/vite.svg" alt="Logo"/>
       </header>
 
       <div className="card">
