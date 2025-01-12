@@ -1,3 +1,5 @@
+import { Card } from "./components/card"
+
 function App() {
   return (
     <div>
@@ -6,6 +8,7 @@ function App() {
         <img src="/vite.svg" alt="Logo" />
       </header>
 
+      <Card />
       <p className="read-the-docs">
         Application to manage Agenda
       </p>
