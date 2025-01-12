@@ -1,7 +1,7 @@
 <<<<<<< HEAD
-# Agenda
+# Agenda Master
 
-Agenda is a simple web-based task management application designed to help users organize and track their daily tasks efficiently. The project is ideal for individuals and small teams who want a straightforward tool to boost productivity.
+Agenda Master is a simple web-based task management application designed to help users organize and track their daily tasks efficiently. The project is ideal for individuals and small teams who want a straightforward tool to boost productivity.
 
 ## Features
 - **Task Creation**: Add new tasks with ease.
