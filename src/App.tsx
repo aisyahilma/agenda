@@ -1,19 +1,21 @@
-import {Profile} from "./components/profile"
+import { TaskList } from "./components/task-list";
 
-function App() {
+const taskItems = [
+  { id: 1, text: "Breakfast", isCompleted: true },
+  { id: 2, text: "Sleep", isCompleted: false },
+  { id: 3, text: "Wake Up", isCompleted: false },
+];
+
+export function App() {
   return (
     <div>
       <header>
-        <h1>Agenda Master</h1>
+        <h1>Task Management</h1>
       </header>
 
-      <p className="read-the-docs">
-        Application to manage Agenda
-      </p>
+      <p className="read-the-docs">Application to manage tasks. </p>
 
-      <Profile />
+      <TaskList taskItems={taskItems} />
     </div>
-  )
+  );
 }
-
-export default App
