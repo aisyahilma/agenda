@@ -1,5 +1,6 @@
-export type TaskItem = {
-    id: number;
-    text: string;
-    isCompleted: boolean;
-  };
+export type Task = {
+  id: number;
+  text: string;
+  isCompleted: boolean;
+  date: Date;
+};

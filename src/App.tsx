@@ -1,5 +1,5 @@
 import { TaskList } from "./components/task-list";
-import { Task } from "/types/task";
+import { Task } from "./types/task";
 
 const taskItems: Task[] = [
   { id: 1, text: "Dinner", isCompleted: true, date: new Date() },
