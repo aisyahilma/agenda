@@ -1,11 +1,13 @@
-type AvatarProps = {
-    src:string;
-    size:number;
+
+import React from 'react';
+
+interface AvatarProps {
+  src: string;
+  alt: string;
 }
-export function Avatar({src, size}: AvatarProps) {
-    return (
-      <div>
-        <img src={src} alt="Avatar" width={size} height={size} />
-      </div>
-    );
-}
+
+const Avatar: React.FC<AvatarProps> = ({ src, alt }) => {
+  return <img src={src} alt={alt} className="w-12 h-12 rounded-full" />;
+};
+
+export default Avatar;

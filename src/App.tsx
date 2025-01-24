@@ -1,53 +1,64 @@
-import { useState } from "react";
-import { TaskList } from "./components/task-list";
-import { Task } from "./types/task";
+import React, { useState } from 'react';
+import Profile from './components/profile';
+import TaskList from './components/task-list';
 
-const initialTaskItems: Task[] = [
-  { id: 1, text: "Makan malam", isCompleted: true, date: new Date() },
-  { id: 2, text: "Tidur", isCompleted: false, date: new Date() },
-  { id: 3, text: "Bangun", isCompleted: false, date: new Date() },
-];
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
 
-export function App() {
-  const [taskItems, setTaskItems] = useState(initialTaskItems);
+const App: React.FC = () => {
+  const [tasks, setTasks] = useState<Task[]>([]);
+  const [newTaskTitle, setNewTaskTitle] = useState('');
 
-  function addTaskItem() {
-    const newTaskItem = {
-      id: taskItems[taskItems.length - 1].id + 1,
-      text: "Tugas baru",
-      isCompleted: false,
-      date: new Date(),
-    };
+  const addTask = () => {
+    if (!newTaskTitle) return;
+    setTasks((prev) => [
+      ...prev,
+      { id: Date.now(), title: newTaskTitle, completed: false },
+    ]);
+    setNewTaskTitle('');
+  };
 
-    const updatedTaskItems = [...taskItems, newTaskItem];
+  const toggleTask = (id: number) => {
+    setTasks((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
 
-    setTaskItems(updatedTaskItems);
-  }
+  const deleteTask = (id: number) => {
+    setTasks((prev) => prev.filter((task) => task.id !== id));
+  };
 
   return (
-    <div className="flex justify-center">
-      <div className="space-y-8">
-        <main className="space-y-5">
-          <header>
-            <h1 className="text-3xl font-bold text-blue-700 underline">
-              Task Management
-            </h1>
-          </header>
-
-          <p className="read-the-docs">{taskItems.length} tasks</p>
-
-          <div>
-            <button
-              onClick={addTaskItem}
-              className="rounded bg-blue-800 p-1 text-xs text-white"
-            >
-              Add Task
-            </button>
-          </div>
-
-          <TaskList taskItems={taskItems} />
-        </main>
-      </div>
+    <div className="min-h-screen bg-gray-100 p-6">
+      <header className="flex justify-between items-center mb-6">
+        <h1 className="text-2xl font-bold text-red-600">Agenda Master</h1>
+        <Profile />
+      </header>
+      <main className="bg-white rounded shadow p-6">
+        <div className="mb-4">
+          <input
+            type="text"
+            value={newTaskTitle}
+            onChange={(e) => setNewTaskTitle(e.target.value)}
+            className="border rounded p-2 w-full"
+            placeholder="New task..."
+          />
+          <button
+            onClick={addTask}
+            className="bg-red-500 text-white px-4 py-2 rounded mt-2 hover:bg-red-600"
+          >
+            Add Task
+          </button>
+        </div>
+        <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
+      </main>
     </div>
   );
-}
+};
+
+export default App;

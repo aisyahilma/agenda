@@ -1,34 +1,33 @@
-import { Task } from "../types/task";
+import React from 'react';
 
-type TaskItemProps = {
-  taskItem: Task;
-};
+interface TaskListItemProps {
+  task: {
+    id: number;
+    title: string;
+    completed: boolean;
+  };
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+}
 
-export function TaskListItem({ taskItem }: TaskItemProps) {
-  function deleteTask() {
-    console.log("Delete task");
-  }
-
+const TaskListItem: React.FC<TaskListItemProps> = ({ task, onToggle, onDelete }) => {
   return (
-    <div className="flex gap-2">
-      {taskItem.isCompleted && <span>✅</span>}
-      {!taskItem.isCompleted && <span>▢</span>}
-
+    <div className="flex items-center justify-between py-2">
       <div>
-        <p className="text-xl font-bold">{taskItem.text}</p>
-        <p className="text-sm">
-          <time>{taskItem.date.toDateString()}</time>
-        </p>
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task.id)}
+        />
+        <span className={`ml-2 ${task.completed ? 'line-through text-gray-500' : ''}`}>
+          {task.title}
+        </span>
       </div>
-
-      <div className="flex items-center">
-        <button
-          onClick={deleteTask}
-          className="rounded bg-red-800 p-1 text-xs text-white"
-        >
-          Delete
-        </button>
-      </div>
+      <button onClick={() => onDelete(task.id)} className="text-red-500 hover:underline">
+        Delete
+      </button>
     </div>
   );
-}
+};
+
+export default TaskListItem;
