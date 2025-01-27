@@ -1,21 +1,36 @@
-import { Task } from "../types/task";
+interface TaskListItemProps {
+  task: {
+    id: number;
+    title: string;
+    completed: boolean;
+  };
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+}
 
-type TaskItemProps = {
-  taskItem: Task;
-};
-
-export function TaskListItem({ taskItem }: TaskItemProps) {
+function TaskListItem({ task, onToggle, onDelete }: TaskListItemProps) {
   return (
-    <div className="flex gap-2">
-      {taskItem.isCompleted && <span>✅</span>}
-      {!taskItem.isCompleted && <span>▢</span>}
-
+    <div className="flex items-center justify-between py-2">
       <div>
-        <p className="text-xl font-bold">{taskItem.text}</p>
-        <p className="text-sm">
-          <time>{taskItem.date.toDateString()}</time>
-        </p>
+        <input
+          type="checkbox"
+          checked={task.completed}
+          onChange={() => onToggle(task.id)}
+        />
+        <span
+          className={`ml-2 ${task.completed ? "text-gray-500 line-through" : ""}`}
+        >
+          {task.title}
+        </span>
       </div>
+      <button
+        onClick={() => onDelete(task.id)}
+        className="text-red-500 hover:underline"
+      >
+        Delete
+      </button>
     </div>
   );
 }
+
+export default TaskListItem;

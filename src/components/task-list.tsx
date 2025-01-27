@@ -1,20 +1,31 @@
-import { type Task } from "../types/task";
-import { TaskListItem } from "./task-list-item";
+import React from 'react';
+import TaskListItem from './task-list-item';
 
-type TaskItemsProps = {
-  taskItems: Task[];
+interface Task {
+  id: number;
+  title: string;
+  completed: boolean;
+}
+
+interface TaskListProps {
+  tasks: Task[];
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+}
+
+const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, onDelete }) => {
+  return (
+    <div>
+      {tasks.map((task) => (
+        <TaskListItem
+          key={task.id}
+          task={task}
+          onToggle={onToggle}
+          onDelete={onDelete}
+        />
+      ))}
+    </div>
+  );
 };
 
-export function TaskList({ taskItems }: TaskItemsProps) {
-  return (
-    <ul className="space-y-2">
-      {taskItems.map((taskItem) => {
-        return (
-          <li key={taskItem.id}>
-            <TaskListItem taskItem={taskItem} />
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
+export default TaskList;
