@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import Profile from "./components/profile";
-import TaskList from "./components/task-list";
+import { useState } from "react";
 
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
+import { Profile } from "./components/profile";
+import { TaskList } from "./components/task-list";
+import { FormTask, Task } from "./types/task";
 
-const App: React.FC = () => {
+function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
-  const [newTaskTitle, setNewTaskTitle] = useState("");
 
-  const addTask = () => {
-    if (!newTaskTitle) return;
-    setTasks((prev) => [
-      ...prev,
-      { id: Date.now(), title: newTaskTitle, completed: false },
-    ]);
-    setNewTaskTitle("");
+  const addTask = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const taskFormData = new FormData(event.currentTarget);
+    const taskValues = Object.fromEntries(taskFormData) as FormTask;
+
+    const newTask = {
+      id: Date.now(),
+      title: taskValues.title,
+      completed: false,
+    };
+
+    setTasks([...tasks, newTask]);
   };
 
   const toggleTask = (id: number) => {
@@ -39,26 +40,29 @@ const App: React.FC = () => {
         <h1 className="text-2xl font-bold text-red-600">Agenda Master</h1>
         <Profile />
       </header>
+
       <main className="rounded bg-white p-6 shadow">
         <div className="mb-4">
-          <input
-            type="text"
-            value={newTaskTitle}
-            onChange={(e) => setNewTaskTitle(e.target.value)}
-            className="w-full rounded border p-2"
-            placeholder="New task..."
-          />
-          <button
-            onClick={addTask}
-            className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
-          >
-            Add Task
-          </button>
+          <form onSubmit={addTask}>
+            <input
+              name="title"
+              type="text"
+              className="w-full rounded border p-2"
+              placeholder="New task..."
+            />
+            <button
+              type="submit"
+              className="mt-2 rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+            >
+              Add Task
+            </button>
+          </form>
         </div>
+
         <TaskList tasks={tasks} onToggle={toggleTask} onDelete={deleteTask} />
       </main>
     </div>
   );
-};
+}
 
 export default App;

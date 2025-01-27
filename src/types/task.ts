@@ -1,6 +1,9 @@
 export type Task = {
   id: number;
-  text: string;
-  isCompleted: boolean;
-  date: Date;
+  title: string;
+  completed: boolean;
+};
+
+export type FormTask = {
+  title: string;
 };
