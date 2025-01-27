@@ -1,4 +1,4 @@
-import TaskListItem from "./task-list-item";
+import { TaskListItem } from "./task-list-item";
 
 interface Task {
   id: number;

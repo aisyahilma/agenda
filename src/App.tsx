@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import { Profile } from "./components/profile";
 import { TaskList } from "./components/task-list";
-import { FormTask, Task } from "./types/task";
+import { Task } from "./types/task";
 
 function App() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -11,13 +11,16 @@ function App() {
     event.preventDefault();
 
     const taskFormData = new FormData(event.currentTarget);
-    const taskValues = Object.fromEntries(taskFormData) as FormTask;
+    const taskValues = Object.fromEntries(taskFormData);
 
     const newTask = {
       id: Date.now(),
-      title: taskValues.title,
+      title: String(taskValues.title),
+      date: new Date(String(taskFormData.get("date"))),
       completed: false,
     };
+
+    console.log({ newTask });
 
     setTasks([...tasks, newTask]);
   };
@@ -42,13 +45,18 @@ function App() {
       </header>
 
       <main className="rounded bg-white p-6 shadow">
-        <div className="mb-4">
+        <div className="mb-4 max-w-lg">
           <form onSubmit={addTask}>
             <input
               name="title"
               type="text"
               className="w-full rounded border p-2"
               placeholder="New task..."
+            />
+            <input
+              name="date"
+              type="date"
+              className="w-full rounded border p-2"
             />
             <button
               type="submit"
