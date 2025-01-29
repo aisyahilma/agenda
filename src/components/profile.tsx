@@ -1,7 +1,6 @@
-import React from 'react';
-import Avatar from './avatar';
+import Avatar from "./avatar";
 
-const Profile: React.FC = () => {
+export function Profile() {
   return (
     <div className="flex items-center space-x-4">
       <Avatar src="/default-avatar.png" alt="Ilma" />
@@ -11,6 +10,4 @@ const Profile: React.FC = () => {
       </div>
     </div>
   );
-};
-
-export default Profile;
+}

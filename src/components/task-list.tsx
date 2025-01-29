@@ -1,5 +1,4 @@
-import React from 'react';
-import TaskListItem from './task-list-item';
+import TaskListItem from "./task-list-item";
 
 interface Task {
   id: number;
@@ -13,7 +12,7 @@ interface TaskListProps {
   onDelete: (id: number) => void;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, onDelete }) => {
+export function TaskList({ tasks, onToggle, onDelete }: TaskListProps) {
   return (
     <div>
       {tasks.map((task) => (
@@ -26,6 +25,4 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, onToggle, onDelete }) => {
       ))}
     </div>
   );
-};
-
-export default TaskList;
+}
