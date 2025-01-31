@@ -1,9 +1,7 @@
+import { Task } from "../types/task";
+
 interface TaskListItemProps {
-  task: {
-    id: number;
-    title: string;
-    completed: boolean;
-  };
+  task: Task;
   onToggle: (id: number) => void;
   onDelete: (id: number) => void;
 }
@@ -11,17 +9,16 @@ interface TaskListItemProps {
 function TaskListItem({ task, onToggle, onDelete }: TaskListItemProps) {
   return (
     <div className="flex items-center justify-between py-2">
-      <div>
+      <div className="inline-flex gap-4">
         <input
           type="checkbox"
           checked={task.completed}
           onChange={() => onToggle(task.id)}
         />
-        <span
-          className={`ml-2 ${task.completed ? "text-gray-500 line-through" : ""}`}
-        >
+        <p className={`${task.completed ? "text-gray-500 line-through" : ""}`}>
           {task.title}
-        </span>
+        </p>
+        <p>{task.date.toDateString()}</p>
       </div>
       <button
         onClick={() => onDelete(task.id)}

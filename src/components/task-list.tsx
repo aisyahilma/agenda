@@ -1,10 +1,5 @@
+import { Task } from "../types/task";
 import TaskListItem from "./task-list-item";
-
-interface Task {
-  id: number;
-  title: string;
-  completed: boolean;
-}
 
 interface TaskListProps {
   tasks: Task[];

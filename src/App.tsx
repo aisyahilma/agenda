@@ -5,7 +5,14 @@ import { TaskList } from "./components/task-list";
 import { Task } from "./types/task";
 
 function App() {
-  const [tasks, setTasks] = useState<Task[]>([]);
+  const [tasks, setTasks] = useState<Task[]>([
+    {
+      id: 1,
+      title: "Makan pagi",
+      date: new Date(),
+      completed: false,
+    },
+  ]);
 
   const addTask = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
